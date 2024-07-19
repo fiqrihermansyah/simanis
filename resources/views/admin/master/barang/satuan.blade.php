@@ -8,12 +8,11 @@
             <div class="card w-100">
                 <div class="card-header row">
                     <div class="d-flex justify-content-end align-items-center w-100">
-                    @if(Auth::user()->role->name != 'staff')
-                        <button class="btn btn-success" type="button"  data-toggle="modal" data-target="#TambahData" id="modal-button">Tambah Perangkat</button>
-                    @endif
+                        @if(Auth::user()->role->name != 'staff')
+                            <button class="btn btn-success" type="button" data-toggle="modal" data-target="#TambahDataPC" id="modal-button">Tambah Perangkat</button>
+                        @endif
                     </div>
                 </div>
-
 
                 <!-- Modal Form untuk Mengisi Jenis Barang PC -->
                 <div class="modal fade" id="TambahDataPC" tabindex="-1" aria-labelledby="TambahDataPCModalLabel" aria-hidden="true">
@@ -28,53 +27,65 @@
                             <div class="modal-body">
                                 <!-- Form untuk Non-PC -->
                                 <div id="pc-form">
-                                <div class="form-row">
-                                    <div class="form-group col-md-6">
-                                        <label for="kode_inventaris">Kode Inventaris</label>
-                                        <input type="text" class="form-control" id="kode_inventaris" autocomplete="off">
-                                        <input type="hidden" name="id" id="id">
+                                    <div class="form-row">
+                                        <div class="form-group col-md-6">
+                                            <label for="kode_inventaris">Kode Inventaris</label>
+                                            <input type="text" class="form-control" id="kode_inventaris" autocomplete="off">
+                                            <input type="hidden" name="id" id="id">
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <label for="jenis_barang">Jenis Barang</label>
+                                            <input type="text" class="form-control" id="jenis_barang" readonly>
+                                        </div>
                                     </div>
-                                    <div class="form-group col-md-6">
-                                        <label for="jenis_barang">Jenis Barang</label>
-                                        <input type="text" class="form-control" id="jenis_barang" readonly>
+                                    <div class="form-group">
+                                        <label for="serial_number">Serial Number</label>
+                                        <input type="text" class="form-control" id="serial_number" autocomplete="off">
                                     </div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="serial_number">Serial Number</label>
-                                    <input type="text" class="form-control" id="serial_number" autocomplete="off">
-                                </div>
-                                <div class="form-group">
-                                    <label for="merk_type">Merk/Type</label>
-                                    <input type="text" class="form-control" id="merk_type" autocomplete="off">
-                                </div>
-                                <div class="form-group">
-                                    <label for="tanggal_registrasi">Tanggal Registrasi</label>
-                                    <input type="date" class="form-control" id="tanggal_registrasi" autocomplete="off">
-                                </div>
-                                <div class="form-row">
-                                    <div class="form-group col-md-6">
-                                        <label for="processor">Processor</label>
-                                        <input type="text" class="form-control" id="processor" autocomplete="off">
+                                    <div class="form-group">
+                                        <label for="merk_type">Merk/Type</label>
+                                        <input type="text" class="form-control" id="merk_type" autocomplete="off">
                                     </div>
-                                    <div class="form-group col-md-6">
-                                        <label for="ram">RAM</label>
-                                        <input type="text" class="form-control" id="ram">
+                                    <div class="form-group">
+                                        <label for="tanggal_registrasi">Tanggal Registrasi</label>
+                                        <input type="date" class="form-control" id="tanggal_registrasi" autocomplete="off">
                                     </div>
-                                </div>
-                                <div class="form-row">
-                                    <div class="form-group col-md-6">
-                                        <label for="disk">Hardisk</label>
-                                        <input type="text" class="form-control" id="disk">
+                                    <div class="form-row">
+                                        <div class="form-group col-md-6">
+                                            <label for="processor">Processor</label>
+                                            <input type="text" class="form-control" id="processor" autocomplete="off">
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <label for="ram">RAM</label>
+                                            <input type="text" class="form-control" id="ram">
+                                        </div>
                                     </div>
-                                    <div class="form-group col-md-6">
-                                        <label for="os">OS</label>
-                                        <input type="text" class="form-control" id="os">
+                                    <div class="form-row">
+                                        <div class="form-group col-md-6">
+                                            <label for="disk">Hardisk</label>
+                                            <input type="text" class="form-control" id="disk">
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <label for="os">OS</label>
+                                            <input type="text" class="form-control" id="os">
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="vga">VGA</label>
-                                    <input type="text" class="form-control" id="vga">
-                                </div>
+                                    <div class="form-group">
+                                        <label for="vga">VGA</label>
+                                        <input type="text" class="form-control" id="vga">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="user">User</label>
+                                        <input type="text" class="form-control" id="user">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="divisi">Divisi</label>
+                                        <input type="text" class="form-control" id="divisi">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="lokasi">Lokasi</label>
+                                        <input type="text" class="form-control" id="lokasi">
+                                    </div>
                                 </div>
                             </div>
                             <div class="modal-footer">
@@ -85,381 +96,310 @@
                     </div>
                 </div>
 
-                <!-- Modal Form untuk Ubah Pengguna -->
-                <div class="modal fade" id="UbahPenggunaModal" tabindex="-1" aria-labelledby="UbahPenggunaModalLabel" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="UbahPenggunaModalLabel">Ubah Pengguna</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                                <div id="ubah-pengguna-form">
-                                    <input type="hidden" name="edit_id" id="edit_id">
-                                    <div class="form-group">
-                                        <label for="edit_user">User</label>
-                                        <input type="text" class="form-control" id="edit_user">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="edit_divisi">Divisi</label>
-                                        <input type="text" class="form-control" id="edit_divisi">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="edit_lokasi">Lokasi</label>
-                                        <input type="text" class="form-control" id="edit_lokasi">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Kembali</button>
-                                <button type="button" class="btn btn-success" id="simpan-perubahan-pengguna">Simpan Perubahan</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
                 <script>
                     $(document).ready(function() {
                         $('#modal-button').click(function() {
-                        $('#TambahDataPC').modal('show'); // Munculkan modal "Tambah Data" untuk PC
-                        $('#jenis_barang').val('PC'); // Isi kolom jenis barang dengan "PC"
-                    });
+                            $('#TambahDataPC').modal('show'); // Munculkan modal "Tambah Data" untuk PC
+                            $('#jenis_barang').val('PC'); // Isi kolom jenis barang dengan "PC"
+                        });
 
-                    // Ketika tombol "Kembali" ditekan
-                    $('#kembali').click(function() {
-                        $('#TambahData').modal('hide'); // Sembunyikan modal "Tambah Data"
-                    });
+                        // Ketika tombol "Kembali" ditekan
+                        $('#kembali').click(function() {
+                            $('#TambahDataPC').modal('hide'); // Sembunyikan modal "Tambah Data"
+                        });
 
-                    // Fungsi untuk menyimpan data
-                    $('#simpanPC').on('click', function() {
-                        if (validateForm()) {
-                            simpan();
-                        }
-                    });
-
-                    function validateForm() {
-                        let valid = true;
-                        // Periksa setiap field di form PC
-                        $('#pc-form input').each(function() {
-                            if ($(this).val() === '') {
-                                valid = false;
-                                // Tambahkan border merah pada input yang kosong
-                                $(this).css('border-color', 'red');
-                            } else {
-                                // Kembalikan border ke warna semula jika sudah diisi
-                                $(this).css('border-color', '');
+                        // Fungsi untuk menyimpan data
+                        $('#simpanPC').on('click', function() {
+                            if (validateForm()) {
+                                if ($('#simpanPC').text() === "Simpan Perubahan") {
+                                    ubah();
+                                } else {
+                                    simpan();
+                                }
                             }
                         });
 
-                        if (!valid) {
-                            // Jika ada field yang kosong, tampilkan alert
-                            Swal.fire({
-                                icon: 'error',
-                                title: 'Oops...',
-                                text: 'Semua field harus diisi!',
-                                confirmButtonColor: '#6FB98F' // Mengubah warna tombol "OK" menjadi hijau
+                        function validateForm() {
+                            let valid = false;
+                            // Periksa setiap field di form PC
+                            $('#pc-form input').each(function() {
+                                if ($(this).val() === '') {
+                                    valid = true;
+                                    $(this).css('border-color', 'red'); // Tambahkan border merah pada input yang kosong
+                                } else {
+                                    $(this).css('border-color', ''); // Kembalikan border ke warna semula jika sudah diisi
+                                }
+                            });
+
+                            if (!valid) {
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Oops...',
+                                    text: 'Semua field harus diisi!',
+                                    confirmButtonColor: '#6FB98F'
+                                });
+                            }
+
+                            return valid;
+                        }
+
+                        function simpan() {
+                            let data = {
+                                inventory_code: $("#kode_inventaris").val(),
+                                item_type: $("#jenis_barang").val(),
+                                serial_number: $("#serial_number").val(),
+                                brand: $("#merk_type").val(),
+                                registration_date: $("#tanggal_registrasi").val(),
+                                processor: $("#processor").val(),
+                                ram: $("#ram").val(),
+                                hard_disk: $("#disk").val(),
+                                os: $("#os").val(),
+                                vga: $("#vga").val(),
+                                user: $("#user").val(),
+                                divisi: $("#divisi").val(),
+                                lokasi: $("#lokasi").val(),
+                                "_token": "{{ csrf_token() }}"
+                            };
+                            console.log("Simpan Data: ", data);
+
+                            $.ajax({
+                                url: `{{ route('barang.satuan.save') }}`,
+                                type: "post",
+                                data: data,
+                                success: function(res) {
+                                    Swal.fire({
+                                        position: "center",
+                                        icon: "success",
+                                        title: res.message,
+                                        showConfirmButton: false,
+                                        timer: 1500
+                                    });
+                                    $('#TambahDataPC').modal('hide');
+                                    $('#data-jenis').DataTable().ajax.reload();
+                                },
+                                error: function(err) {
+                                    console.log(err);
+                                }
                             });
                         }
 
-                        return valid;
-                    }
-
-                    function simpan(){
-                        // Logika untuk menyimpan data
-                        $.ajax({
-                            url:`{{route('barang.satuan.save')}}`,
-                            type:"post",
-                            data:{
-                                kode_inventaris: $("#kode_inventaris").val(),
-                                jenis_barang: $("#jenis_barang").val(),
+                        function ubah() {
+                            let data = {
+                                id: $("#id").val(),
+                                inventory_code: $("#kode_inventaris").val(),
+                                item_type: $("#jenis_barang").val(),
                                 serial_number: $("#serial_number").val(),
-                                merk_type: $("#merk_type").val(),
-                                tanggal_registrasi: $("#tanggal_registrasi").val(),
+                                brand: $("#merk_type").val(),
+                                registration_date: $("#tanggal_registrasi").val(),
                                 processor: $("#processor").val(),
                                 ram: $("#ram").val(),
-                                hardisk: $("#hardisk").val(),
+                                hard_disk: $("#disk").val(),
                                 os: $("#os").val(),
                                 vga: $("#vga").val(),
-                                "_token": "{{csrf_token()}}"
-                            },
-                            success:function(res){
-                                Swal.fire({
-                                    position: "center",
-                                    icon: "success",
-                                    title: res.message,
-                                    showConfirmButton: false,
-                                    timer: 1500
-                                });
-                                $('#kembali').click();
-                                $("#kode_inventaris").val(null);
-                                $("#serial_number").val(null);
-                                $("#merk_type").val(null);
-                                $("#tanggal_registrasi").val(null);
-                                $("#processor").val(null);
-                                $("#ram").val(null);
-                                $("#hardisk").val(null);
-                                $("#os").val();
-                                $("#vga").val();
-                                $('#data-jenis').DataTable().ajax.reload();
-                            },
-                            error:function(err){
-                                console.log(err);
-                            },
-                            
-                        });
-                    }
+                                user: $("#user").val(),
+                                divisi: $("#divisi").val(),
+                                lokasi: $("#lokasi").val(),
+                                "_token": "{{ csrf_token() }}"
+                            };
+                            console.log("Ubah Data: ", data);
 
-                    function ubah(){
-                        $.ajax({
-                            url:`{{route('barang.satuan.update')}}`,
-                            type:"put",
-                            data:{
-                                id:$("#id").val(),
-                                name:$("#name").val(),
-                                description:$("#desc").val(),
-                                "_token":"{{csrf_token()}}"
-                            },
-                            success:function(res){
-                                Swal.fire({
-                                    position: "center",
-                                    icon: "success",
-                                    title: res.message,
-                                    showConfirmButton: false,
-                                    timer: 1500
-                                });
-                                $('#kembali').click();
-                                $("#name").val(null);
-                                $("#desc").val(null);
-                                $('#data-jenis').DataTable().ajax.reload();
-                                $('#simpan').text('Simpan');
-                            },
-                            error:function(err){
-                                console.log(err.responJson.text);
-                            },
-                            
-                        });
-                    }
-
-                    function isi(){
-                        $('#data-jenis').DataTable({
-                            responsive: true, lengthChange: true, autoWidth: false,
-                            processing:true,
-                            serverSide:true,
-                            ajax:`{{route('barang.satuan.list')}}`,
-                            columns:[
-                                {
-                                    "data":null,"sortable":false,
-                                    render:function(data,type,row,meta){
-                                        return meta.row + meta.settings._iDisplayStart+1;
-                                    }
+                            $.ajax({
+                                url: `{{ route('barang.satuan.update') }}`,
+                                type: "put",
+                                data: data,
+                                success: function(res) {
+                                    Swal.fire({
+                                        position: "center",
+                                        icon: "success",
+                                        title: res.message,
+                                        showConfirmButton: false,
+                                        timer: 1500
+                                    });
+                                    $('#TambahDataPC').modal('hide');
+                                    $('#data-jenis').DataTable().ajax.reload();
                                 },
-                                {
-                                    data:'kode_inventaris', // Menambahkan kolom kode inventaris
-                                    name:'kode_inventaris'
-                                },
-                                {
-                                    data:null, // Menambahkan kolom jenis barang
-                                    name:'jenis_barang',
-                                    render:function(){
-                                        return 'PC';
-                                    }
-                                },
-                                {
-                                    data:'serial_number',
-                                    name:'serial_number'
-                                },
-                                {
-                                    data:'merk_type',
-                                    name:'merk_type'
-                                },
-                                {
-                                    data:'tanggal_registrasi', // Menambahkan kolom tanggal registrasi
-                                    name:'tanggal_registrasi'
-                                },
-                                {
-                                    data:'processor',
-                                    name:'processor'
-                                },
-                                {
-                                    data:'ram',
-                                    name:'ram'
-                                },
-                                {
-                                    data:'hardisk',
-                                    name:'hardisk'
-                                },
-                                {
-                                    data:'vga',
-                                    name:'vga'
-                                },
-                                {
-                                    data:'os',
-                                    name:'os'
-                                },
-                                {
-                                    data:'user',
-                                    name:'user'
-                                },
-                                {
-                                    data:'divisi',
-                                    name:'divisi'
-                                },
-                                {
-                                    data:'lokasi',
-                                    name:'lokasi'
-                                },
-                                {
-                                    data:'name',
-                                    name:'name'
-                                },
-                                {
-                                    data:'description',
-                                    name:'description',
-                                    render:function(data){
-                                        if(data == null){
-                                            return "<span class='font-weight-bold'>-</span>";
-                                        }
-                                        return data;
-                                    }
-                                },
-                                @if(Auth::user()->role->name != 'staff')
-                                {
-                                    data: null,
-                                    name: 'tindakan',
-                                    render: function(data, type, row) {
-                                        return `
-                                            <button class="btn btn-warning ubah" id="${row.id}" style="background-color: #28A745; border-color: #28A745; color:white; ">Ubah</button>
-                                            <button class="btn btn-danger hapus" id="${row.id}">Hapus</button>
-                                            <button class="btn btn-info ubah-pengguna" id="${row.id}" style="background-color: #0275D8; border-color: #0275D8; color:white ">Ubah Pengguna</button>
-                                        `;
-                                    }
+                                error: function(err) {
+                                    console.log(err);
                                 }
-                                @endif
-                            ]
-                        }).buttons().container();
-                    }
+                            });
+                        }
 
-                    $(document).on("click", ".ubah", function() {
-                        let id = $(this).attr('id');
-                        $("#modal-button").click();
-                        $("#simpan").text("Simpan Perubahan");
-                        $.ajax({
-                            url: "{{ route('barang.jenis.detail') }}",
-                            type: "post",
-                            data: {
-                                id: id,
-                                "_token": "{{ csrf_token() }}"
-                            },
-                            success: function({ data }) {
-                                $("#id").val(data.id);
-                                $("#name").val(data.name);
-                                $("#desc").val(data.description);
-                            }
-                        });
-                    });
-
-                    $(document).on("click", ".hapus", function() {
-                        let id = $(this).attr('id');
-                        const swalWithBootstrapButtons = Swal.mixin({
-                            customClass: {
-                                confirmButton: "btn btn-success m-1",
-                                cancelButton: "btn btn-danger m-1"
-                            },
-                            buttonsStyling: false
-                        });
-                        swalWithBootstrapButtons.fire({
-                            title: "Anda Yakin?",
-                            text: "Data Ini Akan Di Hapus",
-                            icon: "warning",
-                            showCancelButton: true,
-                            confirmButtonText: "Ya, Hapus",
-                            cancelButtonText: "Tidak, Kembali!",
-                            reverseButtons: true
-                        }).then((result) => {
-                            if (result.isConfirmed) {
-                                $.ajax({
-                                    url: "{{ route('barang.jenis.delete') }}",
-                                    type: "delete",
-                                    data: {
-                                        id: id,
-                                        "_token": "{{ csrf_token() }}"
+                        function isi() {
+                            $('#data-jenis').DataTable({
+                                responsive: true, lengthChange: true, autoWidth: false,
+                                processing: true,
+                                serverSide: true,
+                                ajax: `{{ route('barang.satuan.list') }}`,
+                                columns: [
+                                    {
+                                        "data": null, "sortable": false,
+                                        render: function(data, type, row, meta) {
+                                            return meta.row + meta.settings._iDisplayStart + 1;
+                                        }
                                     },
-                                    success: function(res) {
-                                        Swal.fire({
-                                            position: "center",
-                                            icon: "success",
-                                            title: res.message,
-                                            showConfirmButton: false,
-                                            timer: 1500
-                                        });
-                                        $('#data-jenis').DataTable().ajax.reload();
+                                    { data: 'inventory_code', name: 'inventory_code' },
+                                    { 
+                                        data: null, name: 'item_type',
+                                        render: function() {
+                                            return 'PC';
+                                        }
+                                    },
+                                    { data: 'serial_number', name: 'serial_number' },
+                                    { data: 'brand', name: 'brand' },
+                                    { data: 'registration_date', name: 'registration_date' },
+                                    { data: 'processor', name: 'processor' },
+                                    { data: 'ram', name: 'ram' },
+                                    { data: 'hard_disk', name: 'hard_disk' },
+                                    { data: 'os', name: 'os' },
+                                    { data: 'vga', name: 'vga' },
+                                    { data: 'user', name: 'user' },
+                                    { data: 'divisi', name: 'divisi' },
+                                    { data: 'lokasi', name: 'lokasi' },
+                                    @if(Auth::user()->role->name != 'staff')
+                                    {
+                                        data: null, name: 'tindakan',
+                                        render: function(data, type, row) {
+                                            return `
+                                                <button class="btn btn-warning ubah" id="${row.id}" style="background-color: #28A745; border-color: #28A745; color:white;">Ubah</button>
+                                                <button class="btn btn-danger hapus" id="${row.id}">Hapus</button>
+                                                <button class="btn btn-info ubah-pengguna" id="${row.id}" style="background-color: #0275D8; border-color: #0275D8; color:white;">Ubah Pengguna</button>
+                                            `;
+                                        }
                                     }
-                                });
-                            }
-                        });
-                    });
+                                    @endif
+                                ]
+                            }).buttons().container();
+                        }
 
-                    $(document).on("click", ".ubah-pengguna", function() {
-                        let id = $(this).attr('id');
-                        $("#UbahPenggunaModal").modal('show');
-                        $.ajax({
-                            url: "{{ route('barang.jenis.detail') }}",
-                            type: "post",
-                            data: {
-                                id: id,
-                                "_token": "{{ csrf_token() }}"
-                            },
-                            success: function({ data }) {
-                                $("#edit_id").val(data.id);
-                                $("#edit_user").val(data.user);
-                                $("#edit_divisi").val(data.divisi);
-                                $("#edit_lokasi").val(data.lokasi);
-                            }
-                        });
-                    });
-
-                    $('#simpan-perubahan-pengguna').on('click', function() {
-                        let id = $("#edit_id").val();
-                        let user = $("#edit_user").val();
-                        let divisi = $("#edit_divisi").val();
-                        let lokasi = $("#edit_lokasi").val();
-                        $.ajax({
-                            url: `{{ route('barang.jenis.updateUser') }}`,
-                            type: "put",
-                            data: {
-                                id: id,
-                                user: user,
-                                divisi: divisi,
-                                lokasi: lokasi,
-                                "_token": "{{ csrf_token() }}"
-                            },
-                            success: function(res) {
-                                Swal.fire({
-                                    position: "center",
-                                    icon: "success",
-                                    title: res.message,
-                                    showConfirmButton: false,
-                                    timer: 1500
-                                });
-                                $('#UbahPenggunaModal').modal('hide');
-                                $('#data-jenis').DataTable().ajax.reload();
-                            },
-                            error: function(err) {
-                                console.log(err.responseJSON.text);
-                            },
+                        $(document).on("click", ".ubah", function() {
+                            let id = $(this).attr('id');
+                            $("#modal-button").click();
+                            $("#simpanPC").text("Simpan Perubahan");
+                            $.ajax({
+                                url: "{{ route('barang.satuan.detail') }}",
+                                type: "post",
+                                data: {
+                                    id: id,
+                                    "_token": "{{ csrf_token() }}"
+                                },
+                                success: function({ data }) {
+                                    $("#id").val(data.id);
+                                    $("#kode_inventaris").val(data.inventory_code);
+                                    $("#jenis_barang").val(data.item_type);
+                                    $("#serial_number").val(data.serial_number);
+                                    $("#merk_type").val(data.brand);
+                                    $("#tanggal_registrasi").val(data.registration_date);
+                                    $("#processor").val(data.processor);
+                                    $("#ram").val(data.ram);
+                                    $("#disk").val(data.hard_disk);
+                                    $("#os").val(data.os);
+                                    $("#vga").val(data.vga);
+                                    $("#user").val(data.user);
+                                    $("#divisi").val(data.divisi);
+                                    $("#lokasi").val(data.lokasi);
+                                }
+                            });
                         });
 
-                    });
+                        $(document).on("click", ".hapus", function() {
+                            let id = $(this).attr('id');
+                            const swalWithBootstrapButtons = Swal.mixin({
+                                customClass: {
+                                    confirmButton: "btn btn-success m-1",
+                                    cancelButton: "btn btn-danger m-1"
+                                },
+                                buttonsStyling: false
+                            });
+                            swalWithBootstrapButtons.fire({
+                                title: "Anda Yakin?",
+                                text: "Data Ini Akan Di Hapus",
+                                icon: "warning",
+                                showCancelButton: true,
+                                confirmButtonText: "Ya, Hapus",
+                                cancelButtonText: "Tidak, Kembali!",
+                                reverseButtons: true
+                            }).then((result) => {
+                                if (result.isConfirmed) {
+                                    $.ajax({
+                                        url: "{{ route('barang.satuan.delete') }}",
+                                        type: "delete",
+                                        data: {
+                                            id: id,
+                                            "_token": "{{ csrf_token() }}"
+                                        },
+                                        success: function(res) {
+                                            Swal.fire({
+                                                position: "center",
+                                                icon: "success",
+                                                title: res.message,
+                                                showConfirmButton: false,
+                                                timer: 1500
+                                            });
+                                            $('#data-jenis').DataTable().ajax.reload();
+                                        }
+                                    });
+                                }
+                            });
+                        });
 
-                    isi();
-                });
+                        $(document).on("click", ".ubah-pengguna", function() {
+                            let id = $(this).attr('id');
+                            $("#UbahPenggunaModal").modal('show');
+                            $.ajax({
+                                url: "{{ route('barang.satuan.detail') }}",
+                                type: "post",
+                                data: {
+                                    id: id,
+                                    "_token": "{{ csrf_token() }}"
+                                },
+                                success: function({ data }) {
+                                    $("#edit_id").val(data.id);
+                                    $("#edit_user").val(data.user);
+                                    $("#edit_divisi").val(data.divisi);
+                                    $("#edit_lokasi").val(data.lokasi);
+                                }
+                            });
+                        });
+
+                        $('#simpan-perubahan-pengguna').on('click', function() {
+                            let id = $("#edit_id").val();
+                            let user = $("#edit_user").val();
+                            let divisi = $("#edit_divisi").val();
+                            let lokasi = $("#edit_lokasi").val();
+                            $.ajax({
+                                url: `{{ route('barang.satuan.update') }}`,
+                                type: "put",
+                                data: {
+                                    id: id,
+                                    user: user,
+                                    divisi: divisi,
+                                    lokasi: lokasi,
+                                    "_token": "{{ csrf_token() }}"
+                                },
+                                success: function(res) {
+                                    Swal.fire({
+                                        position: "center",
+                                        icon: "success",
+                                        title: res.message,
+                                        showConfirmButton: false,
+                                        timer: 1500
+                                    });
+                                    $('#UbahPenggunaModal').modal('hide');
+                                    $('#data-jenis').DataTable().ajax.reload();
+                                },
+                                error: function(err) {
+                                    console.log(err.responseJSON.text);
+                                },
+                            });
+                        });
+
+                        isi();
+                    });
                 </script>
 
                 <div class="card-body">
                     <div class="table-responsive">
-                        <table id="data-jenis" width="100%"  class="table table-bordered text-nowrap border-bottom dataTable no-footer dtr-inline collapsed">
+                        <table id="data-jenis" width="100%" class="table table-bordered text-nowrap border-bottom dataTable no-footer dtr-inline collapsed">
                             <thead>
                                 <tr>
                                     <th class="border-bottom-0" width="8%">No</th>
@@ -476,8 +416,6 @@
                                     <th class="border-bottom-0">User</th>
                                     <th class="border-bottom-0">Divisi</th>
                                     <th class="border-bottom-0">Lokasi</th>
-                                    <th class="border-bottom-0">Nama</th>
-                                    <th class="border-bottom-0">Keterangan</th>
                                     @if(Auth::user()->role->name != 'staff')
                                     <th class="border-bottom-0" width="1%">Tindakan</th>
                                     @endif

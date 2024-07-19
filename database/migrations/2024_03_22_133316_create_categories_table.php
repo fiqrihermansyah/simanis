@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class UpdateCategoriesTable extends Migration
+class CreateCategoriesTable extends Migration
 {
     public function up()
     {
@@ -25,7 +25,6 @@ class UpdateCategoriesTable extends Migration
 
             // Kolom khusus untuk Non-PC
             $table->string('tipe_barang')->nullable();
-
         });
     }
 

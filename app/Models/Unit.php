@@ -10,10 +10,14 @@ class Unit extends Model
 {
     use HasFactory;
     protected $table = 'units';
-    protected $fillable = ['name','description'];
+    protected $fillable = [
+        'name', 'description', 'inventory_code', 'item_type', 'serial_number', 
+        'brand', 'registration_date', 'processor', 'ram', 'hard_disk', 'os', 'vga',
+        'user', 'divisi', 'lokasi'
+    ];
 
-    public function items():HasMany
+    public function items(): HasMany
     {
-        return $this -> hasMany(Item::class);
+        return $this->hasMany(Item::class);
     }
 }
