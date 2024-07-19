@@ -16,6 +16,8 @@ class Unit extends Model
         'user', 'divisi', 'lokasi'
     ];
 
+    //tes
+
     public function items(): HasMany
     {
         return $this->hasMany(Item::class);
