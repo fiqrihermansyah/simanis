@@ -13,7 +13,7 @@ class Unit extends Model
     protected $fillable = [
         'name', 'description', 'inventory_code', 'item_type', 'serial_number', 
         'brand', 'registration_date', 'processor', 'ram', 'hard_disk', 'os', 'vga',
-        'user', 'divisi', 'lokasi'
+        'pengguna', 'divisi', 'lokasi'
     ];
 
     //tes

@@ -43,13 +43,13 @@ class UnitController extends Controller
             'hard_disk' => 'required|string|max:255',
             'os' => 'required|string|max:255',
             'vga' => 'required|string|max:255',
-            'user' => 'nullable|string|max:255',
+            'pengguna' => 'nullable|string|max:255',
             'divisi' => 'nullable|string|max:255',
             'lokasi' => 'nullable|string|max:255',
         ]);
 
-        $units = new Unit($validated);
-        $status = $units->save();
+        $unit = new Unit($validated);
+        $status = $unit->save();
 
         if (!$status) {
             return response()->json(
@@ -62,23 +62,10 @@ class UnitController extends Controller
         ], 200);
     }
 
-    public function detail(Request $request): JsonResponse
-    {
-        $id = $request->id;
-        $data = Unit::find($id);
-
-        if (!$data) {
-            return response()->json(["message" => "Data Tidak Ditemukan"], 404);
-        }
-
-        return response()->json(["data" => $data], 200);
-    }
-
-    //tes
-
     public function update(Request $request): JsonResponse
     {
         $validated = $request->validate([
+            'id' => 'required|exists:units,id',
             'inventory_code' => 'required|string|max:255',
             'item_type' => 'required|string|max:255',
             'serial_number' => 'required|string|max:255',
@@ -89,20 +76,14 @@ class UnitController extends Controller
             'hard_disk' => 'required|string|max:255',
             'os' => 'required|string|max:255',
             'vga' => 'required|string|max:255',
-            'user' => 'nullable|string|max:255',
+            'pengguna' => 'nullable|string|max:255',
             'divisi' => 'nullable|string|max:255',
             'lokasi' => 'nullable|string|max:255',
         ]);
 
-        $id = $request->id;
-        $data = Unit::find($id);
-
-        if (!$data) {
-            return response()->json(["message" => "Data Tidak Ditemukan"], 404);
-        }
-
-        $data->fill($validated);
-        $status = $data->save();
+        $unit = Unit::find($validated['id']);
+        $unit->fill($validated);
+        $status = $unit->save();
 
         if (!$status) {
             return response()->json(
@@ -114,6 +95,7 @@ class UnitController extends Controller
             "message" => "Data Berhasil Di Ubah"
         ], 200);
     }
+
 
 
     public function delete(Request $request): JsonResponse
