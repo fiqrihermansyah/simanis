@@ -12,38 +12,24 @@ class Category extends Model
 
     protected $table = 'categories';
 
-    // Fillable default untuk kolom yang umum antara PC dan Non-PC
     protected $fillable = [
         'kode_inventaris', 
         'jenis_barang', 
         'serial_number', 
         'merk_type', 
         'tanggal_registrasi',
-    ];
-
-    // Fillable khusus untuk PC
-    protected $fillableForPc = [
+        'tipe_barang',
         'processor', 
         'ram', 
         'disk', 
         'os', 
-        'vga'
+        'vga',
+        'name',
+        'description',
+        'pengguna',
+        'divisi',
+        'lokasi'
     ];
-
-    // Fillable khusus untuk Non-PC
-    protected $fillableForNonPc = [
-        'tipe_barang'
-    ];
-
-    // Method untuk mengatur fillable berdasarkan jenis
-    public function setFillableForType($type)
-    {
-        if ($type === 'pc') {
-            $this->fillable = array_merge($this->fillable, $this->fillableForPc);
-        } else {
-            $this->fillable = array_merge($this->fillable, $this->fillableForNonPc);
-        }
-    }
 
     public function items(): HasMany
     {

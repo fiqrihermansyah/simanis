@@ -22,113 +22,107 @@ class CategoryController extends Controller
     public function list(Request $request): JsonResponse
     {
         $category = Category::latest()->get();
-        if($request -> ajax()){
+        if ($request->ajax()) {
             return DataTables::of($category)
-            ->addColumn('tindakan',function($data){
-                $button = "<button class='ubah btn btn-success m-1' id='".$data->id."'>Ubah</button>";
-                $button .= "<button class='hapus btn btn-danger m-1' id='".$data->id."'>Hapus</button>";
-                return $button;
-            })
-            ->rawColumns(['tindakan'])
-            -> make(true);
+                ->addColumn('tindakan', function($data) {
+                    $button = "<button class='ubah btn btn-success m-1' id='".$data->id."'>Ubah</button>";
+                    $button .= "<button class='hapus btn btn-danger m-1' id='".$data->id."'>Hapus</button>";
+                    return $button;
+                })
+                ->rawColumns(['tindakan'])
+                ->make(true);
         }
     }
 
     public function save(CreateCategoryRequest $request): JsonResponse
     {
         $category = new Category();
-        $jenisBarang = $request->input('jenis-barang');
-
-        // Set fillable berdasarkan jenis barang
-        $category->setFillableForType($jenisBarang);
+        $jenisBarang = $request->input('jenis_barang');
 
         if ($jenisBarang === 'pc') {
-            $category->kode_inventaris = $request->input('kodeInventarisPc');
-            $category->jenis_barang = $request->input('jenis-barang-pc');
-            $category->serial_number = $request->input('serial-number-pc');
-            $category->merk_type = $request->input('merk-type-pc');
-            $category->tanggal_registrasi = $request->input('tanggal-registrasi-pc');
-            $category->processor = $request->input('processor-pc');
-            $category->ram = $request->input('ram-pc');
-            $category->disk = $request->input('disk-pc');
-            $category->os = $request->input('os-pc');
-            $category->vga = $request->input('vga-pc');
+            $category->fill([
+                'kode_inventaris' => $request->input('kode_inventaris'),
+                'jenis_barang' => $request->input('jenis_barang'),
+                'serial_number' => $request->input('serial_number'),
+                'merk_type' => $request->input('merk_type'),
+                'tanggal_registrasi' => $request->input('tanggal_registrasi'),
+                'processor' => $request->input('processor'),
+                'ram' => $request->input('ram'),
+                'disk' => $request->input('disk'),
+                'os' => $request->input('os'),
+                'vga' => $request->input('vga'),
+                'name' => $request->input('name'),
+                'description' => $request->input('description'),
+                'pengguna' => $request->input('pengguna'),
+                'divisi' => $request->input('divisi'),
+                'lokasi' => $request->input('lokasi')
+            ]);
         } else {
-            $category->kode_inventaris = $request->input('kode-inventaris-non-pc');
-            $category->jenis_barang = $request->input('jenis-barang-non-pc');
-            $category->serial_number = $request->input('serial-number-non-pc');
-            $category->merk_type = $request->input('merk-type-non-pc');
-            $category->tanggal_registrasi = $request->input('tanggal-registrasi-non-pc');
-            $category->tipe_barang = $request->input('tipe-barang-non-pc');
+            $category->fill([
+                'kode_inventaris' => $request->input('kode_inventaris'),
+                'jenis_barang' => $request->input('jenis_barang'),
+                'serial_number' => $request->input('serial_number'),
+                'merk_type' => $request->input('merk_type'),
+                'tanggal_registrasi' => $request->input('tanggal_registrasi'),
+                'tipe_barang' => $request->input('tipe_barang'),
+                'name' => $request->input('name'),
+                'description' => $request->input('description'),
+                'pengguna' => $request->input('pengguna'),
+                'divisi' => $request->input('divisi'),
+                'lokasi' => $request->input('lokasi')
+            ]);
         }
 
         $status = $category->save();
 
         if (!$status) {
             return response()->json(
-                ["message" => "Data Gagal Di Simpan"]
+                ["message" => "Data Gagal Disimpan"]
             )->setStatusCode(400);
         }
 
         return response()->json([
-            "message" => "Data Berhasil Di Simpan"
+            "message" => "Data Berhasil Disimpan"
         ])->setStatusCode(200);
     }
 
     public function detail(DetailCategoryRequest $request): JsonResponse
     {  
-        $id = $request -> id;
+        $id = $request->id;
         $data = Category::find($id);
         return response()->json(
-            ["data"=>$data]
+            ["data" => $data]
         )->setStatusCode(200);
     }
 
     public function update(UpdateCategoryRequest $request): JsonResponse
     {
-        $id = $request -> id;
+        $id = $request->id;
         $data = Category::find($id);
-        $data -> fill($request->all());
-        $status = $data -> save();
-        if(!$status){
+        $data->fill($request->all());
+        $status = $data->save();
+        if (!$status) {
             return response()->json(
-                ["message"=>"Data Gagal Di Ubah"]
+                ["message" => "Data Gagal Diubah"]
             )->setStatusCode(400);
         }
-        return response() -> json([
-            "message"=>"Data Berhasil Di Ubah"
-        ]) -> setStatusCode(200);
-    }
-
-    public function updateUser(UpdateCategoryRequest $request): JsonResponse
-    {
-        $id = $request -> id;
-        $data = Category::find($id);
-        $data -> fill($request->all());
-        $status = $data -> save();
-        if(!$status){
-            return response()->json(
-                ["message"=>"Data Gagal Di Ubah"]
-            )->setStatusCode(400);
-        }
-        return response() -> json([
-            "message"=>"Data Berhasil Di Ubah"
-        ]) -> setStatusCode(200);
+        return response()->json([
+            "message" => "Data Berhasil Diubah"
+        ])->setStatusCode(200);
     }
 
     public function delete(DeleteCategoryRequest $request)
     {
-        $id = $request -> id;
+        $id = $request->id;
         $category = Category::find($id);
-        $status = $category -> delete();
-        if(!$status){
+        $status = $category->delete();
+        if (!$status) {
             return response()->json(
-                ["message"=>"Data Gagal Di Hapus"]
+                ["message" => "Data Gagal Dihapus"]
             )->setStatusCode(400);
         }
-        return response() -> json([
-            "message"=>"Data Berhasil Di Hapus"
-        ]) -> setStatusCode(200);
+        return response()->json([
+            "message" => "Data Berhasil Dihapus"
+        ])->setStatusCode(200);
     }
-
 }

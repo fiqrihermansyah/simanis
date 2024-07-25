@@ -119,4 +119,16 @@ class UnitController extends Controller
             "message" => "Data Berhasil Di Hapus"
         ], 200);
     }
+
+    public function detail(Request $request): JsonResponse
+    {
+        $id = $request->id;
+        $data = Unit::find($id);
+
+        if ($data) {
+            return response()->json(['data' => $data]);
+        } else {
+            return response()->json(['message' => 'Data not found'], 404);
+        }
+    }
 }

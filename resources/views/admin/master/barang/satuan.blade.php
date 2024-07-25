@@ -373,7 +373,6 @@
                                             return `
                                                 <button class="btn btn-warning ubah" id="${row.id}" style="background-color: #28A745; border-color: #28A745; color:white;">Ubah</button>
                                                 <button class="btn btn-danger hapus" id="${row.id}">Hapus</button>
-                                                <button class="btn btn-info ubah-pengguna" id="${row.id}" style="background-color: #0275D8; border-color: #0275D8; color:white;">Ubah Pengguna</button>
                                             `;
                                         }
                                     }
@@ -420,57 +419,6 @@
                                         }
                                     });
                                 }
-                            });
-                        });
-
-                        $(document).on("click", ".ubah-pengguna", function() {
-                            let id = $(this).attr('id');
-                            $("#UbahPenggunaModal").modal('show');
-                            $.ajax({
-                                url: "{{ route('barang.satuan.detail') }}",
-                                type: "post",
-                                data: {
-                                    id: id,
-                                    "_token": "{{ csrf_token() }}"
-                                },
-                                success: function({ data }) {
-                                    $("#edit_id").val(data.id);
-                                    $("#edit_pengguna").val(data.pengguna);
-                                    $("#edit_divisi").val(data.divisi);
-                                    $("#edit_lokasi").val(data.lokasi);
-                                }
-                            });
-                        });
-
-                        $('#simpan-perubahan-pengguna').on('click', function() {
-                            let id = $("#edit_id").val();
-                            let pengguna = $("#edit_pengguna").val();
-                            let divisi = $("#edit_divisi").val();
-                            let lokasi = $("#edit_lokasi").val();
-                            $.ajax({
-                                url: `{{ route('barang.satuan.update') }}`,
-                                type: "put",
-                                data: {
-                                    id: id,
-                                    pengguna: pengguna,
-                                    divisi: divisi,
-                                    lokasi: lokasi,
-                                    "_token": "{{ csrf_token() }}"
-                                },
-                                success: function(res) {
-                                    Swal.fire({
-                                        position: "center",
-                                        icon: "success",
-                                        title: res.message,
-                                        showConfirmButton: false,
-                                        timer: 1500
-                                    });
-                                    $('#UbahPenggunaModal').modal('hide');
-                                    $('#data-jenis').DataTable().ajax.reload();
-                                },
-                                error: function(err) {
-                                    console.log(err.responseJSON.text);
-                                },
                             });
                         });
 
