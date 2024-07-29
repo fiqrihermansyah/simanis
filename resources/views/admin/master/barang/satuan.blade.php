@@ -91,7 +91,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="tambah_keterangan">Keterangan</label>
-                                        <input type="text" class="form-control" id="tambah_keterangan" name="keterangan">
+                                        <input type="text" class="form-control" id="tambah_keterangan">
                                     </div>
                                 </div>
                             </div>
@@ -181,7 +181,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="edit_keterangan">Keterangan</label>
-                                        <input type="text" class="form-control" id="edit_keterangan" name="keterangan">
+                                        <input type="text" class="form-control" id="edit_keterangan">
                                     </div>
                                 </div>
                             </div>
@@ -199,6 +199,11 @@
                         $('#modal-tambah-button').click(function() {
                             $('#TambahDataPC').modal('show');
                             generateKodeInventaris('#tambah_kode_inventaris', '#tambah_jenis_barang', '#tambah_tanggal_registrasi');
+                        });
+
+                        $('#TambahDataPC').on('hidden.bs.modal', function () {
+                            $('#tambah-pc-form input').val(''); // Kosongkan semua input dalam form tambah
+                            $('#tambah-pc-form select').prop('selectedIndex', 0); // Reset semua select dalam form tambah
                         });
 
                         $('#tambah_jenis_barang, #tambah_tanggal_registrasi').change(function() {
@@ -244,6 +249,11 @@
                                     console.log("Error: ", err);
                                 }
                             });
+                        });
+
+                        $('#EditDataPC').on('hidden.bs.modal', function () {
+                            $('#edit-pc-form input').val(''); // Kosongkan semua input dalam form edit
+                            $('#edit-pc-form select').prop('selectedIndex', 0); // Reset semua select dalam form edit
                         });
 
                         // Simpan perubahan
@@ -313,7 +323,7 @@
                                 pengguna: $("#tambah_pengguna").val(),
                                 divisi: $("#tambah_divisi").val(),
                                 lokasi: $("#tambah_lokasi").val(),
-                                keterangan: $("#tambah_keterangan").val(),
+                                keterangan: $("#tambah_keterangan").val(),  // Pastikan ini ditambahkan
                                 "_token": "{{ csrf_token() }}"
                             };
                             console.log(data);
@@ -355,7 +365,7 @@
                                 pengguna: $("#edit_pengguna").val(),
                                 divisi: $("#edit_divisi").val(),
                                 lokasi: $("#edit_lokasi").val(),
-                                keterangan: $("#edit_keterangan").val(),
+                                keterangan: $("#edit_keterangan").val(),  // Pastikan ini ditambahkan
                                 "_token": "{{ csrf_token() }}"
                             };
                             console.log("Ubah Data: ", data);
@@ -383,7 +393,9 @@
 
                         function isi() {
                             $('#data-jenis').DataTable({
-                                responsive: true, lengthChange: true, autoWidth: false,
+                                responsive: true, 
+                                lengthChange: true, 
+                                autoWidth: false,
                                 processing: true,
                                 serverSide: true,
                                 ajax: `{{ route('barang.satuan.list') }}`,
@@ -395,12 +407,7 @@
                                         }
                                     },
                                     { data: 'inventory_code', name: 'inventory_code' },
-                                    { 
-                                        data: null, name: 'item_type',
-                                        render: function() {
-                                            return 'PC';
-                                        }
-                                    },
+                                    { data: 'item_type', name: 'item_type' },
                                     { data: 'serial_number', name: 'serial_number' },
                                     { data: 'brand', name: 'brand' },
                                     { data: 'registration_date', name: 'registration_date' },
@@ -412,7 +419,7 @@
                                     { data: 'pengguna', name: 'pengguna' },
                                     { data: 'divisi', name: 'divisi' },
                                     { data: 'lokasi', name: 'lokasi' },
-                                    { data: 'keterangan', name: 'keterangan' }, 
+                                    { data: 'keterangan', name: 'keterangan' }, // Pastikan ini ditambahkan
                                     @if(Auth::user()->role->name != 'staff')
                                     {
                                         data: null, name: 'tindakan',

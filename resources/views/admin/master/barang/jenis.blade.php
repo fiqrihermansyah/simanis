@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title', 'Jenis Barang Non-PC')
+@section('title','Jenis Barang PC')
 @section('content')
 <x-head-datatable/>
 <div class="container-fluid">
@@ -9,24 +9,24 @@
                 <div class="card-header row">
                     <div class="d-flex justify-content-end align-items-center w-100">
                         @if(Auth::user()->role->name != 'staff')
-                            <button class="btn btn-success" type="button" data-toggle="modal" data-target="#TambahDataNonPC" id="modal-tambah-button">Tambah Perangkat</button>
+                            <button class="btn btn-success" type="button" data-toggle="modal" data-target="#TambahDataPC" id="modal-tambah-button">Tambah Perangkat</button>
                         @endif
                     </div>
                 </div>
 
-                <!-- Modal Form untuk Menambah Perangkat Non-PC -->
-                <div class="modal fade" id="TambahDataNonPC" tabindex="-1" aria-labelledby="TambahDataNonPCModalLabel" aria-hidden="true">
+                <!-- Modal Form untuk Menambah Perangkat -->
+                <div class="modal fade" id="TambahDataPC" tabindex="-1" aria-labelledby="TambahDataPCModalLabel" aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="TambahDataNonPCModalLabel">Tambah Jenis Barang Non-PC</h5>
+                                <h5 class="modal-title" id="TambahDataPCModalLabel">Tambah Jenis Barang PC</h5>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
                             <div class="modal-body">
-                                <!-- Form untuk Tambah Non-PC -->
-                                <div id="tambah-non-pc-form">
+                                <!-- Form untuk Tambah PC -->
+                                <div id="tambah-pc-form">
                                     <div class="form-row">
                                         <div class="form-group col-md-6">
                                             <label for="tambah_kode_inventaris">Kode Inventaris</label>
@@ -34,7 +34,7 @@
                                         </div>
                                         <div class="form-group col-md-6">
                                             <label for="tambah_jenis_barang">Jenis Barang</label>
-                                            <input type="text" class="form-control" id="tambah_jenis_barang" readonly value="Non-PC">
+                                            <input type="text" class="form-control" id="tambah_jenis_barang" readonly value="PC">
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -49,16 +49,29 @@
                                         <label for="tambah_tanggal_registrasi">Tanggal Registrasi</label>
                                         <input type="date" class="form-control" id="tambah_tanggal_registrasi" autocomplete="off">
                                     </div>
+                                    <div class="form-row">
+                                        <div class="form-group col-md-6">
+                                            <label for="tambah_processor">Processor</label>
+                                            <input type="text" class="form-control" id="tambah_processor" autocomplete="off">
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <label for="tambah_ram">RAM</label>
+                                            <input type="text" class="form-control" id="tambah_ram">
+                                        </div>
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="form-group col-md-6">
+                                            <label for="tambah_disk">Hardisk</label>
+                                            <input type="text" class="form-control" id="tambah_disk">
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <label for="tambah_os">OS</label>
+                                            <input type="text" class="form-control" id="tambah_os">
+                                        </div>
+                                    </div>
                                     <div class="form-group">
-                                        <label for="tambah_tipe_barang">Tipe Barang</label>
-                                        <select class="form-control" id="tambah_tipe_barang">
-                                            <option value="Printer">Printer</option>
-                                            <option value="Switch">Switch</option>
-                                            <option value="Proyektor">Proyektor</option>
-                                            <option value="Access Point">Access Point</option>
-                                            <option value="CCTV">CCTV</option>
-                                            <option value="NVR">NVR</option>
-                                        </select>
+                                        <label for="tambah_vga">VGA</label>
+                                        <input type="text" class="form-control" id="tambah_vga">
                                     </div>
                                     <div class="form-group">
                                         <label for="tambah_pengguna">Pengguna</label>
@@ -77,32 +90,32 @@
                                         <input type="text" class="form-control" id="tambah_lokasi">
                                     </div>
                                     <div class="form-group">
-                                        <label for="tambah_description">Keterangan</label>
-                                        <input type="text" class="form-control" id="tambah_description">
+                                        <label for="tambah_keterangan">Keterangan</label>
+                                        <input type="text" class="form-control" id="tambah_keterangan">
                                     </div>
                                 </div>
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Kembali</button>
-                                <button type="button" class="btn btn-success" id="simpanTambahNonPC">Simpan</button>
+                                <button type="button" class="btn btn-success" id="simpanTambahPC">Simpan</button>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Modal Form untuk Mengubah Perangkat Non-PC -->
-                <div class="modal fade" id="EditDataNonPC" tabindex="-1" aria-labelledby="EditDataNonPCModalLabel" aria-hidden="true">
+                <!-- Modal Form untuk Mengubah Perangkat -->
+                <div class="modal fade" id="EditDataPC" tabindex="-1" aria-labelledby="EditDataPCModalLabel" aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="EditDataNonPCModalLabel">Ubah Jenis Barang Non-PC</h5>
+                                <h5 class="modal-title" id="EditDataPCModalLabel">Ubah Jenis Barang PC</h5>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
                             <div class="modal-body">
-                                <!-- Form untuk Edit Non-PC -->
-                                <div id="edit-non-pc-form">
+                                <!-- Form untuk Edit PC -->
+                                <div id="edit-pc-form">
                                     <input type="hidden" name="id" id="edit_id">
                                     <div class="form-row">
                                         <div class="form-group col-md-6">
@@ -126,16 +139,29 @@
                                         <label for="edit_tanggal_registrasi">Tanggal Registrasi</label>
                                         <input type="date" class="form-control" id="edit_tanggal_registrasi" autocomplete="off">
                                     </div>
+                                    <div class="form-row">
+                                        <div class="form-group col-md-6">
+                                            <label for="edit_processor">Processor</label>
+                                            <input type="text" class="form-control" id="edit_processor" autocomplete="off">
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <label for="edit_ram">RAM</label>
+                                            <input type="text" class="form-control" id="edit_ram">
+                                        </div>
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="form-group col-md-6">
+                                            <label for="edit_disk">Hardisk</label>
+                                            <input type="text" class="form-control" id="edit_disk">
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <label for="edit_os">OS</label>
+                                            <input type="text" class="form-control" id="edit_os">
+                                        </div>
+                                    </div>
                                     <div class="form-group">
-                                        <label for="edit_tipe_barang">Tipe Barang</label>
-                                        <select class="form-control" id="edit_tipe_barang">
-                                            <option value="Printer">Printer</option>
-                                            <option value="Switch">Switch</option>
-                                            <option value="Proyektor">Proyektor</option>
-                                            <option value="Access Point">Access Point</option>
-                                            <option value="CCTV">CCTV</option>
-                                            <option value="NVR">NVR</option>
-                                        </select>
+                                        <label for="edit_vga">VGA</label>
+                                        <input type="text" class="form-control" id="edit_vga">
                                     </div>
                                     <div class="form-group">
                                         <label for="edit_pengguna">Pengguna</label>
@@ -154,14 +180,14 @@
                                         <input type="text" class="form-control" id="edit_lokasi">
                                     </div>
                                     <div class="form-group">
-                                        <label for="edit_description">Keterangan</label>
-                                        <input type="text" class="form-control" id="edit_description">
+                                        <label for="edit_keterangan">Keterangan</label>
+                                        <input type="text" class="form-control" id="edit_keterangan">
                                     </div>
                                 </div>
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Kembali</button>
-                                <button type="button" class="btn btn-success" id="simpanEditNonPC">Simpan Perubahan</button>
+                                <button type="button" class="btn btn-success" id="simpanEditPC">Simpan Perubahan</button>
                             </div>
                         </div>
                     </div>
@@ -171,17 +197,22 @@
                     $(document).ready(function() {
                         // Modal Tambah
                         $('#modal-tambah-button').click(function() {
-                            $('#TambahDataNonPC').modal('show');
-                            generateKodeInventaris('#tambah_kode_inventaris', '#tambah_tipe_barang', '#tambah_tanggal_registrasi');
+                            $('#TambahDataPC').modal('show');
+                            generateKodeInventaris('#tambah_kode_inventaris', '#tambah_jenis_barang', '#tambah_tanggal_registrasi');
                         });
 
-                        $('#tambah_tipe_barang, #tambah_tanggal_registrasi').change(function() {
-                            generateKodeInventaris('#tambah_kode_inventaris', '#tambah_tipe_barang', '#tambah_tanggal_registrasi');
+                        $('#TambahDataPC').on('hidden.bs.modal', function () {
+                            $('#tambah-pc-form input').val(''); // Kosongkan semua input dalam form tambah
+                            $('#tambah-pc-form select').prop('selectedIndex', 0); // Reset semua select dalam form tambah
+                        });
+
+                        $('#tambah_jenis_barang, #tambah_tanggal_registrasi').change(function() {
+                            generateKodeInventaris('#tambah_kode_inventaris', '#tambah_jenis_barang', '#tambah_tanggal_registrasi');
                         });
 
                         // Simpan data baru
-                        $('#simpanTambahNonPC').on('click', function() {
-                            if (validateForm('#tambah-non-pc-form')) {
+                        $('#simpanTambahPC').on('click', function() {
+                            if (validateForm('#tambah-pc-form')) {
                                 simpan();
                             }
                         });
@@ -190,7 +221,7 @@
                         $(document).on("click", ".ubah", function() {
                             let id = $(this).attr('id');
                             $.ajax({
-                                url: "{{ route('barang.jenis.detail') }}",
+                                url: "{{ route('barang.satuan.detail') }}",
                                 type: "post",
                                 data: {
                                     id: id,
@@ -198,17 +229,21 @@
                                 },
                                 success: function({ data }) {
                                     $("#edit_id").val(data.id);
-                                    $("#edit_kode_inventaris").val(data.kode_inventaris);
-                                    $("#edit_jenis_barang").val(data.jenis_barang);
+                                    $("#edit_kode_inventaris").val(data.inventory_code);
+                                    $("#edit_jenis_barang").val(data.item_type);
                                     $("#edit_serial_number").val(data.serial_number);
-                                    $("#edit_merk_type").val(data.merk_type);
-                                    $("#edit_tanggal_registrasi").val(data.tanggal_registrasi);
-                                    $("#edit_tipe_barang").val(data.tipe_barang);
+                                    $("#edit_merk_type").val(data.brand);
+                                    $("#edit_tanggal_registrasi").val(data.registration_date);
+                                    $("#edit_processor").val(data.processor);
+                                    $("#edit_ram").val(data.ram);
+                                    $("#edit_disk").val(data.hard_disk);
+                                    $("#edit_os").val(data.os);
+                                    $("#edit_vga").val(data.vga);
                                     $("#edit_pengguna").val(data.pengguna);
                                     $("#edit_divisi").val(data.divisi);
                                     $("#edit_lokasi").val(data.lokasi);
-                                    $("#edit_description").val(data.description);
-                                    $('#EditDataNonPC').modal('show');
+                                    $("#edit_keterangan").val(data.keterangan);
+                                    $('#EditDataPC').modal('show');
                                 },
                                 error: function(err) {
                                     console.log("Error: ", err);
@@ -216,9 +251,14 @@
                             });
                         });
 
+                        $('#EditDataPC').on('hidden.bs.modal', function () {
+                            $('#edit-pc-form input').val(''); // Kosongkan semua input dalam form edit
+                            $('#edit-pc-form select').prop('selectedIndex', 0); // Reset semua select dalam form edit
+                        });
+
                         // Simpan perubahan
-                        $('#simpanEditNonPC').on('click', function() {
-                            if (validateForm('#edit-non-pc-form')) {
+                        $('#simpanEditPC').on('click', function() {
+                            if (validateForm('#edit-pc-form')) {
                                 ubah();
                             }
                         });
@@ -239,12 +279,8 @@
 
                         function getTipeKode(tipe) {
                             switch (tipe) {
-                                case 'Printer': return 'PN';
-                                case 'Switch': return 'SW';
-                                case 'Proyektor': return 'INF';
-                                case 'Access Point': return 'AP';
-                                case 'CCTV': return 'CCTV';
-                                case 'NVR': return 'NVR';
+                                case 'PC': return 'PC';
+                                case 'Laptop': return 'NB';
                                 default: return '';
                             }
                         }
@@ -274,22 +310,26 @@
 
                         function simpan() {
                             let data = {
-                                kode_inventaris: $("#tambah_kode_inventaris").val(),
-                                jenis_barang: $("#tambah_jenis_barang").val(),
+                                inventory_code: $("#tambah_kode_inventaris").val(),
+                                item_type: $("#tambah_jenis_barang").val(),
                                 serial_number: $("#tambah_serial_number").val(),
-                                merk_type: $("#tambah_merk_type").val(),
-                                tanggal_registrasi: $("#tambah_tanggal_registrasi").val(),
-                                tipe_barang: $("#tambah_tipe_barang").val(),
+                                brand: $("#tambah_merk_type").val(),
+                                registration_date: $("#tambah_tanggal_registrasi").val(),
+                                processor: $("#tambah_processor").val(),
+                                ram: $("#tambah_ram").val(),
+                                hard_disk: $("#tambah_disk").val(),
+                                os: $("#tambah_os").val(),
+                                vga: $("#tambah_vga").val(),
                                 pengguna: $("#tambah_pengguna").val(),
                                 divisi: $("#tambah_divisi").val(),
                                 lokasi: $("#tambah_lokasi").val(),
-                                description: $("#tambah_description").val(),
+                                keterangan: $("#tambah_keterangan").val(),  // Pastikan ini ditambahkan
                                 "_token": "{{ csrf_token() }}"
                             };
                             console.log(data);
 
                             $.ajax({
-                                url: `{{ route('barang.jenis.save') }}`,
+                                url: `{{ route('barang.satuan.save') }}`,
                                 type: "post",
                                 data: data,
                                 success: function(res) {
@@ -300,7 +340,7 @@
                                         showConfirmButton: false,
                                         timer: 1500
                                     });
-                                    $('#TambahDataNonPC').modal('hide');
+                                    $('#TambahDataPC').modal('hide');
                                     $('#data-jenis').DataTable().ajax.reload();
                                 },
                                 error: function(err) {
@@ -312,22 +352,26 @@
                         function ubah() {
                             let data = {
                                 id: $("#edit_id").val(),
-                                kode_inventaris: $("#edit_kode_inventaris").val(),
-                                jenis_barang: $("#edit_jenis_barang").val(),
+                                inventory_code: $("#edit_kode_inventaris").val(),
+                                item_type: $("#edit_jenis_barang").val(),
                                 serial_number: $("#edit_serial_number").val(),
-                                merk_type: $("#edit_merk_type").val(),
-                                tanggal_registrasi: $("#edit_tanggal_registrasi").val(),
-                                tipe_barang: $("#edit_tipe_barang").val(),
+                                brand: $("#edit_merk_type").val(),
+                                registration_date: $("#edit_tanggal_registrasi").val(),
+                                processor: $("#edit_processor").val(),
+                                ram: $("#edit_ram").val(),
+                                hard_disk: $("#edit_disk").val(),
+                                os: $("#edit_os").val(),
+                                vga: $("#edit_vga").val(),
                                 pengguna: $("#edit_pengguna").val(),
                                 divisi: $("#edit_divisi").val(),
                                 lokasi: $("#edit_lokasi").val(),
-                                description: $("#edit_description").val(),
+                                keterangan: $("#edit_keterangan").val(),  // Pastikan ini ditambahkan
                                 "_token": "{{ csrf_token() }}"
                             };
                             console.log("Ubah Data: ", data);
 
                             $.ajax({
-                                url: `{{ route('barang.jenis.update') }}`,
+                                url: `{{ route('barang.satuan.update') }}`,
                                 type: "put",
                                 data: data,
                                 success: function(res) {
@@ -338,7 +382,7 @@
                                         showConfirmButton: false,
                                         timer: 1500
                                     });
-                                    $('#EditDataNonPC').modal('hide');
+                                    $('#EditDataPC').modal('hide');
                                     $('#data-jenis').DataTable().ajax.reload();
                                 },
                                 error: function(err) {
@@ -349,10 +393,12 @@
 
                         function isi() {
                             $('#data-jenis').DataTable({
-                                responsive: true, lengthChange: true, autoWidth: false,
+                                responsive: true, 
+                                lengthChange: true, 
+                                autoWidth: false,
                                 processing: true,
                                 serverSide: true,
-                                ajax: `{{ route('barang.jenis.list') }}`,
+                                ajax: `{{ route('barang.satuan.list') }}`,
                                 columns: [
                                     {
                                         "data": null, "sortable": false,
@@ -360,21 +406,20 @@
                                             return meta.row + meta.settings._iDisplayStart + 1;
                                         }
                                     },
-                                    { data: 'kode_inventaris', name: 'kode_inventaris' },
-                                    { 
-                                        data: null, name: 'jenis_barang',
-                                        render: function() {
-                                            return 'Non-PC';
-                                        }
-                                    },
+                                    { data: 'inventory_code', name: 'inventory_code' },
+                                    { data: 'item_type', name: 'item_type' },
                                     { data: 'serial_number', name: 'serial_number' },
-                                    { data: 'merk_type', name: 'merk_type' },
-                                    { data: 'tanggal_registrasi', name: 'tanggal_registrasi' },
-                                    { data: 'tipe_barang', name: 'tipe_barang' },
+                                    { data: 'brand', name: 'brand' },
+                                    { data: 'registration_date', name: 'registration_date' },
+                                    { data: 'processor', name: 'processor' },
+                                    { data: 'ram', name: 'ram' },
+                                    { data: 'hard_disk', name: 'hard_disk' },
+                                    { data: 'os', name: 'os' },
+                                    { data: 'vga', name: 'vga' },
                                     { data: 'pengguna', name: 'pengguna' },
                                     { data: 'divisi', name: 'divisi' },
                                     { data: 'lokasi', name: 'lokasi' },
-                                    { data: 'description', name: 'description' },
+                                    { data: 'keterangan', name: 'keterangan' }, // Pastikan ini ditambahkan
                                     @if(Auth::user()->role->name != 'staff')
                                     {
                                         data: null, name: 'tindakan',
@@ -410,7 +455,7 @@
                             }).then((result) => {
                                 if (result.isConfirmed) {
                                     $.ajax({
-                                        url: "{{ route('barang.jenis.delete') }}",
+                                        url: "{{ route('barang.satuan.delete') }}",
                                         type: "delete",
                                         data: {
                                             id: id,
@@ -446,11 +491,15 @@
                                     <th class="border-bottom-0">Serial Number</th>
                                     <th class="border-bottom-0">Merk/Type</th>
                                     <th class="border-bottom-0">Tanggal Registrasi</th>
-                                    <th class="border-bottom-0">Tipe Barang</th>
+                                    <th class="border-bottom-0">Processor</th>
+                                    <th class="border-bottom-0">Ram</th>
+                                    <th class="border-bottom-0">Hardisk</th>
+                                    <th class="border-bottom-0">OS</th>
+                                    <th class="border-bottom-0">VGA</th>
                                     <th class="border-bottom-0">Pengguna</th>
                                     <th class="border-bottom-0">Divisi</th>
                                     <th class="border-bottom-0">Lokasi</th>
-                                    <th class="border-bottom-0">Keterangan</th>
+                                    <th class="border-bottom-0">Keterangan</th> 
                                     @if(Auth::user()->role->name != 'staff')
                                     <th class="border-bottom-0" width="1%">Tindakan</th>
                                     @endif
