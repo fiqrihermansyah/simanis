@@ -33,7 +33,6 @@ class UnitController extends Controller
     public function save(Request $request): JsonResponse
     {
         $validated = $request->validate([
-            'inventory_code' => 'required|string|max:255',
             'item_type' => 'required|string|max:255',
             'serial_number' => 'required|string|max:255',
             'brand' => 'required|string|max:255',
@@ -46,9 +45,23 @@ class UnitController extends Controller
             'pengguna' => 'nullable|string|max:255',
             'divisi' => 'nullable|string|max:255',
             'lokasi' => 'nullable|string|max:255',
+            'keterangan' => 'nullable|string|max:255',
         ]);
 
-        $unit = new Unit($validated);
+        // Generate kode inventaris
+        $tipeBarang = $request->input('item_type');
+        $tanggalRegistrasi = $request->input('registration_date');
+        $date = new \DateTime($tanggalRegistrasi);
+        $month = $date->format('m');
+        $year = $date->format('Y');
+        
+        // Get the latest ID
+        $lastId = Unit::max('id') + 1;
+        $idBarang = str_pad($lastId, 4, '0', STR_PAD_LEFT);
+
+        $kodeInventaris = $this->generateKodeInventaris($tipeBarang, $month, $year, $idBarang);
+
+        $unit = new Unit(array_merge($validated, ['inventory_code' => $kodeInventaris]));
         $status = $unit->save();
 
         if (!$status) {
@@ -60,6 +73,24 @@ class UnitController extends Controller
         return response()->json([
             "message" => "Data Berhasil Di Simpan"
         ], 200);
+    }
+
+    private function generateKodeInventaris($tipeBarang, $month, $year, $idBarang)
+    {
+        $kodeTipe = '';
+        switch ($tipeBarang) {
+            case 'PC':
+                $kodeTipe = 'PC';
+                break;
+            case 'Laptop':
+                $kodeTipe = 'NB';
+                break;
+            default:
+                $kodeTipe = 'UNKNOWN';
+                break;
+        }
+
+        return $kodeTipe . $month . $year . $idBarang;
     }
 
     public function update(Request $request): JsonResponse
@@ -79,6 +110,7 @@ class UnitController extends Controller
             'pengguna' => 'nullable|string|max:255',
             'divisi' => 'nullable|string|max:255',
             'lokasi' => 'nullable|string|max:255',
+            'keterangan' => 'nullable|string|max:255',
         ]);
 
         $unit = Unit::find($validated['id']);
@@ -95,8 +127,6 @@ class UnitController extends Controller
             "message" => "Data Berhasil Di Ubah"
         ], 200);
     }
-
-
 
     public function delete(Request $request): JsonResponse
     {

@@ -37,41 +37,31 @@ class CategoryController extends Controller
     public function save(CreateCategoryRequest $request): JsonResponse
     {
         $category = new Category();
-        $jenisBarang = $request->input('jenis_barang');
 
-        if ($jenisBarang === 'pc') {
-            $category->fill([
-                'kode_inventaris' => $request->input('kode_inventaris'),
-                'jenis_barang' => $request->input('jenis_barang'),
-                'serial_number' => $request->input('serial_number'),
-                'merk_type' => $request->input('merk_type'),
-                'tanggal_registrasi' => $request->input('tanggal_registrasi'),
-                'processor' => $request->input('processor'),
-                'ram' => $request->input('ram'),
-                'disk' => $request->input('disk'),
-                'os' => $request->input('os'),
-                'vga' => $request->input('vga'),
-                'name' => $request->input('name'),
-                'description' => $request->input('description'),
-                'pengguna' => $request->input('pengguna'),
-                'divisi' => $request->input('divisi'),
-                'lokasi' => $request->input('lokasi')
-            ]);
-        } else {
-            $category->fill([
-                'kode_inventaris' => $request->input('kode_inventaris'),
-                'jenis_barang' => $request->input('jenis_barang'),
-                'serial_number' => $request->input('serial_number'),
-                'merk_type' => $request->input('merk_type'),
-                'tanggal_registrasi' => $request->input('tanggal_registrasi'),
-                'tipe_barang' => $request->input('tipe_barang'),
-                'name' => $request->input('name'),
-                'description' => $request->input('description'),
-                'pengguna' => $request->input('pengguna'),
-                'divisi' => $request->input('divisi'),
-                'lokasi' => $request->input('lokasi')
-            ]);
-        }
+        $tipeBarang = $request->input('tipe_barang');
+        $tanggalRegistrasi = $request->input('tanggal_registrasi');
+        $date = new \DateTime($tanggalRegistrasi);
+        $month = $date->format('m');
+        $year = $date->format('Y');
+        
+        // Get the latest ID
+        $lastId = Category::max('id') + 1;
+        $idBarang = str_pad($lastId, 4, '0', STR_PAD_LEFT);
+
+        $kodeInventaris = $this->generateKodeInventaris($tipeBarang, $month, $year, $idBarang);
+
+        $category->fill([
+            'kode_inventaris' => $kodeInventaris,
+            'jenis_barang' => $request->input('jenis_barang'),
+            'serial_number' => $request->input('serial_number'),
+            'merk_type' => $request->input('merk_type'),
+            'tanggal_registrasi' => $request->input('tanggal_registrasi'),
+            'tipe_barang' => $request->input('tipe_barang'),
+            'description' => $request->input('description'),
+            'pengguna' => $request->input('pengguna'),
+            'divisi' => $request->input('divisi'),
+            'lokasi' => $request->input('lokasi')
+        ]);
 
         $status = $category->save();
 
@@ -84,6 +74,33 @@ class CategoryController extends Controller
         return response()->json([
             "message" => "Data Berhasil Disimpan"
         ])->setStatusCode(200);
+    }
+
+    private function generateKodeInventaris($tipeBarang, $month, $year, $idBarang)
+    {
+        $kodeTipe = '';
+        switch ($tipeBarang) {
+            case 'Printer':
+                $kodeTipe = 'PN';
+                break;
+            case 'Switch':
+                $kodeTipe = 'SW';
+                break;
+            case 'Proyektor':
+                $kodeTipe = 'INF';
+                break;
+            case 'Access Point':
+                $kodeTipe = 'AP';
+                break;
+            case 'CCTV':
+                $kodeTipe = 'CCTV';
+                break;
+            case 'NVR':
+                $kodeTipe = 'NVR';
+                break;
+        }
+
+        return $kodeTipe . $month . $year . $idBarang;
     }
 
     public function detail(DetailCategoryRequest $request): JsonResponse

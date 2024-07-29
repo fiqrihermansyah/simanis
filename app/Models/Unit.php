@@ -11,9 +11,9 @@ class Unit extends Model
     use HasFactory;
     protected $table = 'units';
     protected $fillable = [
-        'name', 'description', 'inventory_code', 'item_type', 'serial_number', 
+        'inventory_code', 'item_type', 'serial_number', 
         'brand', 'registration_date', 'processor', 'ram', 'hard_disk', 'os', 'vga',
-        'pengguna', 'divisi', 'lokasi'
+        'pengguna', 'divisi', 'lokasi','keterangan'
     ];
 
     //tes

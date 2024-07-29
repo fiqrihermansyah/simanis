@@ -30,7 +30,7 @@
                                     <div class="form-row">
                                         <div class="form-group col-md-6">
                                             <label for="tambah_kode_inventaris">Kode Inventaris</label>
-                                            <input type="text" class="form-control" id="tambah_kode_inventaris" autocomplete="off">
+                                            <input type="text" class="form-control" id="tambah_kode_inventaris" autocomplete="off" readonly>
                                         </div>
                                         <div class="form-group col-md-6">
                                             <label for="tambah_jenis_barang">Jenis Barang</label>
@@ -79,11 +79,19 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="tambah_divisi">Divisi</label>
-                                        <input type="text" class="form-control" id="tambah_divisi">
+                                        <select class="form-control" id="tambah_divisi">
+                                            <option value="Sistem Informasi">Sistem Informasi</option>
+                                            <option value="Utilitas">Utilitas</option>
+                                            <option value="Fasilitas">Fasilitas</option>
+                                        </select>
                                     </div>
                                     <div class="form-group">
                                         <label for="tambah_lokasi">Lokasi</label>
                                         <input type="text" class="form-control" id="tambah_lokasi">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="tambah_keterangan">Keterangan</label>
+                                        <input type="text" class="form-control" id="tambah_keterangan" name="keterangan">
                                     </div>
                                 </div>
                             </div>
@@ -112,7 +120,7 @@
                                     <div class="form-row">
                                         <div class="form-group col-md-6">
                                             <label for="edit_kode_inventaris">Kode Inventaris</label>
-                                            <input type="text" class="form-control" id="edit_kode_inventaris" autocomplete="off">
+                                            <input type="text" class="form-control" id="edit_kode_inventaris" autocomplete="off" readonly>
                                         </div>
                                         <div class="form-group col-md-6">
                                             <label for="edit_jenis_barang">Jenis Barang</label>
@@ -161,11 +169,19 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="edit_divisi">Divisi</label>
-                                        <input type="text" class="form-control" id="edit_divisi">
+                                        <select class="form-control" id="edit_divisi">
+                                            <option value="Sistem Informasi">Sistem Informasi</option>
+                                            <option value="Utilitas">Utilitas</option>
+                                            <option value="Fasilitas">Fasilitas</option>
+                                        </select>
                                     </div>
                                     <div class="form-group">
                                         <label for="edit_lokasi">Lokasi</label>
                                         <input type="text" class="form-control" id="edit_lokasi">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="edit_keterangan">Keterangan</label>
+                                        <input type="text" class="form-control" id="edit_keterangan" name="keterangan">
                                     </div>
                                 </div>
                             </div>
@@ -182,6 +198,11 @@
                         // Modal Tambah
                         $('#modal-tambah-button').click(function() {
                             $('#TambahDataPC').modal('show');
+                            generateKodeInventaris('#tambah_kode_inventaris', '#tambah_jenis_barang', '#tambah_tanggal_registrasi');
+                        });
+
+                        $('#tambah_jenis_barang, #tambah_tanggal_registrasi').change(function() {
+                            generateKodeInventaris('#tambah_kode_inventaris', '#tambah_jenis_barang', '#tambah_tanggal_registrasi');
                         });
 
                         // Simpan data baru
@@ -216,6 +237,7 @@
                                     $("#edit_pengguna").val(data.pengguna);
                                     $("#edit_divisi").val(data.divisi);
                                     $("#edit_lokasi").val(data.lokasi);
+                                    $("#edit_keterangan").val(data.keterangan);
                                     $('#EditDataPC').modal('show');
                                 },
                                 error: function(err) {
@@ -230,6 +252,28 @@
                                 ubah();
                             }
                         });
+
+                        function generateKodeInventaris(kodeField, tipeField, tanggalField) {
+                            let tipe = $(tipeField).val();
+                            let tanggal = $(tanggalField).val();
+                            if (tipe && tanggal) {
+                                let tipeKode = getTipeKode(tipe);
+                                let date = new Date(tanggal);
+                                let month = ("0" + (date.getMonth() + 1)).slice(-2);
+                                let year = date.getFullYear();
+                                let idBarang = '0000'; // Placeholder, will be replaced server-side
+                                let kodeInventaris = `${tipeKode}${month}${year}${idBarang}`;
+                                $(kodeField).val(kodeInventaris);
+                            }
+                        }
+
+                        function getTipeKode(tipe) {
+                            switch (tipe) {
+                                case 'PC': return 'PC';
+                                case 'Laptop': return 'NB';
+                                default: return '';
+                            }
+                        }
 
                         function validateForm(formId) {
                             let valid = true;
@@ -269,6 +313,7 @@
                                 pengguna: $("#tambah_pengguna").val(),
                                 divisi: $("#tambah_divisi").val(),
                                 lokasi: $("#tambah_lokasi").val(),
+                                keterangan: $("#tambah_keterangan").val(),
                                 "_token": "{{ csrf_token() }}"
                             };
                             console.log(data);
@@ -310,6 +355,7 @@
                                 pengguna: $("#edit_pengguna").val(),
                                 divisi: $("#edit_divisi").val(),
                                 lokasi: $("#edit_lokasi").val(),
+                                keterangan: $("#edit_keterangan").val(),
                                 "_token": "{{ csrf_token() }}"
                             };
                             console.log("Ubah Data: ", data);
@@ -366,6 +412,7 @@
                                     { data: 'pengguna', name: 'pengguna' },
                                     { data: 'divisi', name: 'divisi' },
                                     { data: 'lokasi', name: 'lokasi' },
+                                    { data: 'keterangan', name: 'keterangan' }, 
                                     @if(Auth::user()->role->name != 'staff')
                                     {
                                         data: null, name: 'tindakan',
@@ -445,6 +492,7 @@
                                     <th class="border-bottom-0">Pengguna</th>
                                     <th class="border-bottom-0">Divisi</th>
                                     <th class="border-bottom-0">Lokasi</th>
+                                    <th class="border-bottom-0">Keterangan</th> 
                                     @if(Auth::user()->role->name != 'staff')
                                     <th class="border-bottom-0" width="1%">Tindakan</th>
                                     @endif

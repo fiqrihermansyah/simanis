@@ -30,7 +30,7 @@
                                     <div class="form-row">
                                         <div class="form-group col-md-6">
                                             <label for="tambah_kode_inventaris">Kode Inventaris</label>
-                                            <input type="text" class="form-control" id="tambah_kode_inventaris" autocomplete="off">
+                                            <input type="text" class="form-control" id="tambah_kode_inventaris" autocomplete="off" readonly>
                                         </div>
                                         <div class="form-group col-md-6">
                                             <label for="tambah_jenis_barang">Jenis Barang</label>
@@ -51,7 +51,14 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="tambah_tipe_barang">Tipe Barang</label>
-                                        <input type="text" class="form-control" id="tambah_tipe_barang" autocomplete="off">
+                                        <select class="form-control" id="tambah_tipe_barang">
+                                            <option value="Printer">Printer</option>
+                                            <option value="Switch">Switch</option>
+                                            <option value="Proyektor">Proyektor</option>
+                                            <option value="Access Point">Access Point</option>
+                                            <option value="CCTV">CCTV</option>
+                                            <option value="NVR">NVR</option>
+                                        </select>
                                     </div>
                                     <div class="form-group">
                                         <label for="tambah_pengguna">Pengguna</label>
@@ -59,15 +66,15 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="tambah_divisi">Divisi</label>
-                                        <input type="text" class="form-control" id="tambah_divisi">
+                                        <select class="form-control" id="tambah_divisi">
+                                            <option value="Sistem Informasi">Sistem Informasi</option>
+                                            <option value="Utilitas">Utilitas</option>
+                                            <option value="Fasilitas">Fasilitas</option>
+                                        </select>
                                     </div>
                                     <div class="form-group">
                                         <label for="tambah_lokasi">Lokasi</label>
                                         <input type="text" class="form-control" id="tambah_lokasi">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="tambah_name">Nama</label>
-                                        <input type="text" class="form-control" id="tambah_name">
                                     </div>
                                     <div class="form-group">
                                         <label for="tambah_description">Keterangan</label>
@@ -100,7 +107,7 @@
                                     <div class="form-row">
                                         <div class="form-group col-md-6">
                                             <label for="edit_kode_inventaris">Kode Inventaris</label>
-                                            <input type="text" class="form-control" id="edit_kode_inventaris" autocomplete="off">
+                                            <input type="text" class="form-control" id="edit_kode_inventaris" autocomplete="off" readonly>
                                         </div>
                                         <div class="form-group col-md-6">
                                             <label for="edit_jenis_barang">Jenis Barang</label>
@@ -121,7 +128,14 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="edit_tipe_barang">Tipe Barang</label>
-                                        <input type="text" class="form-control" id="edit_tipe_barang" autocomplete="off">
+                                        <select class="form-control" id="edit_tipe_barang">
+                                            <option value="Printer">Printer</option>
+                                            <option value="Switch">Switch</option>
+                                            <option value="Proyektor">Proyektor</option>
+                                            <option value="Access Point">Access Point</option>
+                                            <option value="CCTV">CCTV</option>
+                                            <option value="NVR">NVR</option>
+                                        </select>
                                     </div>
                                     <div class="form-group">
                                         <label for="edit_pengguna">Pengguna</label>
@@ -129,15 +143,15 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="edit_divisi">Divisi</label>
-                                        <input type="text" class="form-control" id="edit_divisi">
+                                        <select class="form-control" id="edit_divisi">
+                                            <option value="Sistem Informasi">Sistem Informasi</option>
+                                            <option value="Utilitas">Utilitas</option>
+                                            <option value="Fasilitas">Fasilitas</option>
+                                        </select>
                                     </div>
                                     <div class="form-group">
                                         <label for="edit_lokasi">Lokasi</label>
                                         <input type="text" class="form-control" id="edit_lokasi">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="edit_name">Nama</label>
-                                        <input type="text" class="form-control" id="edit_name">
                                     </div>
                                     <div class="form-group">
                                         <label for="edit_description">Keterangan</label>
@@ -158,6 +172,11 @@
                         // Modal Tambah
                         $('#modal-tambah-button').click(function() {
                             $('#TambahDataNonPC').modal('show');
+                            generateKodeInventaris('#tambah_kode_inventaris', '#tambah_tipe_barang', '#tambah_tanggal_registrasi');
+                        });
+
+                        $('#tambah_tipe_barang, #tambah_tanggal_registrasi').change(function() {
+                            generateKodeInventaris('#tambah_kode_inventaris', '#tambah_tipe_barang', '#tambah_tanggal_registrasi');
                         });
 
                         // Simpan data baru
@@ -188,7 +207,6 @@
                                     $("#edit_pengguna").val(data.pengguna);
                                     $("#edit_divisi").val(data.divisi);
                                     $("#edit_lokasi").val(data.lokasi);
-                                    $("#edit_name").val(data.name);
                                     $("#edit_description").val(data.description);
                                     $('#EditDataNonPC').modal('show');
                                 },
@@ -204,6 +222,32 @@
                                 ubah();
                             }
                         });
+
+                        function generateKodeInventaris(kodeField, tipeField, tanggalField) {
+                            let tipe = $(tipeField).val();
+                            let tanggal = $(tanggalField).val();
+                            if (tipe && tanggal) {
+                                let tipeKode = getTipeKode(tipe);
+                                let date = new Date(tanggal);
+                                let month = ("0" + (date.getMonth() + 1)).slice(-2);
+                                let year = date.getFullYear();
+                                let idBarang = '0000'; // Placeholder, will be replaced server-side
+                                let kodeInventaris = `${tipeKode}${month}${year}${idBarang}`;
+                                $(kodeField).val(kodeInventaris);
+                            }
+                        }
+
+                        function getTipeKode(tipe) {
+                            switch (tipe) {
+                                case 'Printer': return 'PN';
+                                case 'Switch': return 'SW';
+                                case 'Proyektor': return 'INF';
+                                case 'Access Point': return 'AP';
+                                case 'CCTV': return 'CCTV';
+                                case 'NVR': return 'NVR';
+                                default: return '';
+                            }
+                        }
 
                         function validateForm(formId) {
                             let valid = true;
@@ -239,7 +283,6 @@
                                 pengguna: $("#tambah_pengguna").val(),
                                 divisi: $("#tambah_divisi").val(),
                                 lokasi: $("#tambah_lokasi").val(),
-                                name: $("#tambah_name").val(),
                                 description: $("#tambah_description").val(),
                                 "_token": "{{ csrf_token() }}"
                             };
@@ -278,7 +321,6 @@
                                 pengguna: $("#edit_pengguna").val(),
                                 divisi: $("#edit_divisi").val(),
                                 lokasi: $("#edit_lokasi").val(),
-                                name: $("#edit_name").val(),
                                 description: $("#edit_description").val(),
                                 "_token": "{{ csrf_token() }}"
                             };
@@ -332,7 +374,6 @@
                                     { data: 'pengguna', name: 'pengguna' },
                                     { data: 'divisi', name: 'divisi' },
                                     { data: 'lokasi', name: 'lokasi' },
-                                    { data: 'name', name: 'name' },
                                     { data: 'description', name: 'description' },
                                     @if(Auth::user()->role->name != 'staff')
                                     {
@@ -409,7 +450,6 @@
                                     <th class="border-bottom-0">Pengguna</th>
                                     <th class="border-bottom-0">Divisi</th>
                                     <th class="border-bottom-0">Lokasi</th>
-                                    <th class="border-bottom-0">Nama</th>
                                     <th class="border-bottom-0">Keterangan</th>
                                     @if(Auth::user()->role->name != 'staff')
                                     <th class="border-bottom-0" width="1%">Tindakan</th>

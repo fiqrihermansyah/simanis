@@ -24,7 +24,6 @@ class Category extends Model
         'disk', 
         'os', 
         'vga',
-        'name',
         'description',
         'pengguna',
         'divisi',
