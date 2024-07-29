@@ -176,10 +176,6 @@
                                         </select>
                                     </div>
                                     <div class="form-group">
-                                        <label for="edit_lokasi">Lokasi</label>
-                                        <input type="text" class="form-control" id="edit_lokasi">
-                                    </div>
-                                    <div class="form-group">
                                         <label for="edit_keterangan">Keterangan</label>
                                         <input type="text" class="form-control" id="edit_keterangan">
                                     </div>
@@ -288,7 +284,7 @@
                         function validateForm(formId) {
                             let valid = true;
                             $(formId + ' input').each(function() {
-                                if ($(this).val() === '') {
+                                if ($(this).val() === '' && $(this).attr('id') !== 'tambah_vga' && $(this).attr('id') !== 'edit_vga') { // Pengecualian untuk VGA
                                     valid = false;
                                     $(this).css('border-color', 'red');
                                 } else {
@@ -319,7 +315,7 @@
                                 ram: $("#tambah_ram").val(),
                                 hard_disk: $("#tambah_disk").val(),
                                 os: $("#tambah_os").val(),
-                                vga: $("#tambah_vga").val(),
+                                vga: $("#tambah_vga").val(), // Perubahan disini
                                 pengguna: $("#tambah_pengguna").val(),
                                 divisi: $("#tambah_divisi").val(),
                                 lokasi: $("#tambah_lokasi").val(),
@@ -361,7 +357,7 @@
                                 ram: $("#edit_ram").val(),
                                 hard_disk: $("#edit_disk").val(),
                                 os: $("#edit_os").val(),
-                                vga: $("#edit_vga").val(),
+                                vga: $("#edit_vga").val(), // Perubahan disini
                                 pengguna: $("#edit_pengguna").val(),
                                 divisi: $("#edit_divisi").val(),
                                 lokasi: $("#edit_lokasi").val(),
